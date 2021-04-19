@@ -1,0 +1,53 @@
+list container : 
+    docker ps
+    docker ps -a
+
+list images :
+    docker images
+    docker image ls
+
+run container:
+    docker run <container-name>
+    docker run -it <container-name>  ### interarative mode
+
+DOCKER FILE
+
+Dockerfile 1
+
+    FROM python:3
+    ADD my_script.py /
+    RUN pip install pystrich
+    CMD [ "python", "./my_script.py" ]
+
+Dockerfile 2
+
+    FROM node:epine
+    COPY . /app
+    WORKDIR /app
+    CMD node app.js
+
+build image:
+    docker build -t <image-name> .     ### Execute in app
+
+run image :
+    docker run <image-name>
+
+DELETE
+
+Delete image
+    docker rmi <image-id>  # single image
+    docker rmi $(docker images | grep "<none>" | awk '{print $3}') #=> Delete All Untagged Images
+    docker rmi $(docker images | awk '{print $3}')   #=> Delete All Images
+
+
+PUSH
+
+    docker commit <conteaine-ID>  Dockerhub-user_name/image-name
+    docker push   Dockerhub-user_name/image-name
+    docker login ### if you get  message <denied: requested access to the resource is denied>
+
+
+PULL
+
+    docker push   Dockerhub-user_name/image-name
+
